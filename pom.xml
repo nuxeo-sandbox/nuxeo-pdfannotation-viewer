@@ -4,21 +4,40 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-features-parent</artifactId>
-      <version>7.10</version>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-distribution</artifactId>
+      <version>8.10</version>
    </parent>
-   
-   
+
    <groupId>org.nuxeo.ecm.platform.features</groupId>
    <artifactId>nuxeo-platform-pdfviewer-annotation</artifactId>
-   <name>nuxeo-platform-pdfviewer-annotation-${version}</name>
+   <name>Nuxeo PDF Annotation</name>
    <version>1.0.0</version>
-   <packaging>jar</packaging>
-   <properties>
-      <install-path>/Users/klyff/NUXEO/APP/smartecm-cap-lts2015-tomcat/nxserver/plugins</install-path>
-      <!--<install-path>/Volumes/homes/smartecm-cap-lts2015-tomcat/nxserver/plugins</install-path>-->
-   </properties>
+
+   <dependencies>
+
+      <dependency>
+         <groupId>org.nuxeo.ecm.automation</groupId>
+         <artifactId>nuxeo-automation-core</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.nuxeo.ecm.platform</groupId>
+         <artifactId>nuxeo-platform-webapp-core</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.nuxeo.ecm.automation</groupId>
+         <artifactId>nuxeo-automation-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>servletapi</groupId>
+         <artifactId>servletapi</artifactId>
+         <version>2.4</version>
+      </dependency>
+
+   </dependencies>
 
    <repositories>
       <repository>
@@ -38,131 +57,35 @@
             <enabled>false</enabled>
          </releases>
          <snapshots>
-            <enabled>false</enabled>
-            <updatePolicy>never</updatePolicy>
+            <updatePolicy>always</updatePolicy>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+      <repository>
+         <id>nuxeo-studio</id>
+         <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <updatePolicy>always</updatePolicy>
+            <enabled>true</enabled>
          </snapshots>
       </repository>
    </repositories>
 
-   <dependencies>
-      <dependency>
-         <groupId>org.nuxeo.ecm.core</groupId>
-         <artifactId>nuxeo-core</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.nuxeo.ecm.core</groupId>
-         <artifactId>nuxeo-core-event</artifactId>
-       
-      </dependency>
-      <dependency>
-         <groupId>org.nuxeo.ecm.platform</groupId>
-         <artifactId>nuxeo-platform-webapp-core</artifactId>
-       
-      </dependency>
-      <dependency>
-         <groupId>org.nuxeo.ecm.platform</groupId>
-         <artifactId>nuxeo-platform-filemanager-core</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>javax.faces</groupId>
-         <artifactId>jsf-api</artifactId>
-         <version>2.0.2-FCS</version>
-      </dependency>
-      <dependency>
-         <groupId>javax.faces</groupId>
-         <artifactId>jsf-impl</artifactId>
-         <version>2.0.2-FCS</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.seam</groupId>
-         <artifactId>jboss-seam</artifactId>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.seam</groupId>
-         <artifactId>jboss-seam-remoting</artifactId>
-      </dependency>
-
-      <dependency>
-         <groupId>org.nuxeo.runtime</groupId>
-         <artifactId>nuxeo-runtime-test</artifactId>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.nuxeo.ecm.automation</groupId>
-         <artifactId>nuxeo-automation-features</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.nuxeo.ecm.core</groupId>
-         <artifactId>nuxeo-core-event</artifactId>
-      </dependency>
-
-      <dependency>
-         <groupId>org.nuxeo.ecm.platform</groupId>
-         <artifactId>nuxeo-platform-test</artifactId>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.nuxeo.ecm.platform</groupId>
-         <artifactId>nuxeo-platform-test</artifactId>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>servletapi</groupId>
-         <artifactId>servletapi</artifactId>
-         <version>2.4</version>
-         <type>jar</type>
-      </dependency>
-   </dependencies>
-
-   <build>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.12.1</version>
-            <configuration>
-               <skipTests>true</skipTests>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.5</version>
-            <configuration>
-               <encoding>${project.build.sourceEncoding}</encoding>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.3</version>
-            <executions>
-               <execution>
-                  <phase>install</phase>
-                  <configuration>
-                     <tasks>
-                        <copy file="target/${name}.jar" todir="${install-path}" />
-                     </tasks>
-                  </configuration>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
-
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
-            <configuration>
-               <debug>true</debug>
-               <source>1.7</source>
-               <target>1.7</target>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+   <pluginRepositories>
+      <pluginRepository>
+         <id>public</id>
+         <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+         <name>Nuxeo releases</name>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </pluginRepository>
+   </pluginRepositories>
 
 </project>
