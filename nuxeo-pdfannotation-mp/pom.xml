@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+      <groupId>org.nuxeo.pdfannotation</groupId>
+      <artifactId>nuxeo-pdfannotation-parent</artifactId>
+      <version>8.10-SNAPSHOT</version>
+  </parent>
+  <artifactId>nuxeo-pdfannotation-mp</artifactId>
+  <name>Nuxeo PDF Annotation Package</name>
+  <packaging>zip</packaging>
+
+  <dependencies>
+    <!-- Base distribution(s) for the MP -->
+    <!--
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-nxr-server</artifactId>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-nxr-server</artifactId>
+      <type>zip</type>
+      <scope>provided</scope>
+    </dependency>
+  -->
+        <dependency>
+            <groupId>org.nuxeo.ecm.distribution</groupId>
+            <artifactId>nuxeo-nxr-server</artifactId>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.nuxeo.ecm.distribution</groupId>
+            <artifactId>nuxeo-nxr-jsf-ui</artifactId>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.nuxeo.marketplace.dam</groupId>
+            <version>${nuxeo.dam.nxr.version}</version>
+            <artifactId>marketplace</artifactId>
+            <classifier>nxr-server</classifier>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+
+    <!-- Additional bundles to be deployed by the MP -->
+    <dependency>
+      <groupId>org.nuxeo.pdfannotation</groupId>
+      <artifactId>nuxeo-pdfannotation-core</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.nuxeo.build</groupId>
+        <artifactId>ant-assembly-maven-plugin</artifactId>
+        <configuration>
+          <buildFiles>
+            <buildFile>${basedir}/src/main/assemble/assembly.xml</buildFile>
+          </buildFiles>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

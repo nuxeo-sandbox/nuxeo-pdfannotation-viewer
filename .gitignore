@@ -2,8 +2,8 @@
 .classpath
 .project
 .settings
-.idea
-*.stt
+.idea	
+*.log
 bin
 pojo-bin
 *~
@@ -14,6 +14,8 @@ pojo-bin
 *.rej
 *.orig
 .DS_Store
+.Spotlight-V100
+.Trashes
 .pydevproject
 *.pyc
 *.iml
