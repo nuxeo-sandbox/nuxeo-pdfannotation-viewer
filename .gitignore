@@ -2,7 +2,7 @@
 .classpath
 .project
 .settings
-.idea	
+.idea
 *.log
 bin
 pojo-bin
