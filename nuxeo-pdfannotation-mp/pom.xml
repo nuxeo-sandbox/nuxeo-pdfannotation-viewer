@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.nuxeo.pdfannotation</groupId>
     <artifactId>nuxeo-pdfannotation-parent</artifactId>
-    <version>8.10-SNAPSHOT</version>
+    <version>9.1-SNAPSHOT</version>
   </parent>
   <artifactId>nuxeo-pdfannotation-mp</artifactId>
   <name>Nuxeo PDF Annotation Package</name>

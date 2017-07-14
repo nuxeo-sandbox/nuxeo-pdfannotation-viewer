@@ -5,19 +5,19 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>8.10</version>
+    <version>9.1</version>
   </parent>
 
   <groupId>org.nuxeo.pdfannotation</groupId>
   <artifactId>nuxeo-pdfannotation-parent</artifactId>
-  <version>8.10-SNAPSHOT</version>
+  <version>9.1-SNAPSHOT</version>
   <name>Nuxeo PDF Annotation parent</name>
   <description>Parent project for Nuxeo PDF Annotation.</description>
   <packaging>pom</packaging>
 
   <properties>
-    <nuxeo.pdfannotation.version>8.10-SNAPSHOT</nuxeo.pdfannotation.version>
-    <nuxeo.distribution.version>8.10</nuxeo.distribution.version>
+    <nuxeo.pdfannotation.version>9.1-SNAPSHOT</nuxeo.pdfannotation.version>
+    <nuxeo.distribution.version>9.1</nuxeo.distribution.version>
     <nuxeo.dam.nxr.version>6.2.3</nuxeo.dam.nxr.version>
   </properties>
 
@@ -35,7 +35,7 @@
       </dependency>
       <dependency>
         <groupId>org.nuxeo.pdfannotation</groupId>
-        <artifactId>nuxeo-pdfannotation-core</artifactId>
+        <artifactId>nuxeo-pdfannotation-mp</artifactId>
         <version>${nuxeo.pdfannotation.version}</version>
       </dependency>
     </dependencies>
