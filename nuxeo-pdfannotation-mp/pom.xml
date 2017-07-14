@@ -3,49 +3,35 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-      <groupId>org.nuxeo.pdfannotation</groupId>
-      <artifactId>nuxeo-pdfannotation-parent</artifactId>
-      <version>8.10-SNAPSHOT</version>
+    <groupId>org.nuxeo.pdfannotation</groupId>
+    <artifactId>nuxeo-pdfannotation-parent</artifactId>
+    <version>8.10-SNAPSHOT</version>
   </parent>
   <artifactId>nuxeo-pdfannotation-mp</artifactId>
   <name>Nuxeo PDF Annotation Package</name>
   <packaging>zip</packaging>
 
   <dependencies>
-    <!-- Base distribution(s) for the MP -->
-    <!--
-    <dependency>
-      <groupId>org.nuxeo.ecm.distribution</groupId>
-      <artifactId>nuxeo-nxr-server</artifactId>
-      <type>pom</type>
-    </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.distribution</groupId>
       <artifactId>nuxeo-nxr-server</artifactId>
       <type>zip</type>
       <scope>provided</scope>
     </dependency>
-  -->
-        <dependency>
-            <groupId>org.nuxeo.ecm.distribution</groupId>
-            <artifactId>nuxeo-nxr-server</artifactId>
-            <type>zip</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.nuxeo.ecm.distribution</groupId>
-            <artifactId>nuxeo-nxr-jsf-ui</artifactId>
-            <type>zip</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.nuxeo.marketplace.dam</groupId>
-            <version>${nuxeo.dam.nxr.version}</version>
-            <artifactId>marketplace</artifactId>
-            <classifier>nxr-server</classifier>
-            <type>zip</type>
-            <scope>provided</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-nxr-jsf-ui</artifactId>
+      <type>zip</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.marketplace.dam</groupId>
+      <version>${nuxeo.dam.nxr.version}</version>
+      <artifactId>marketplace</artifactId>
+      <classifier>nxr-server</classifier>
+      <type>zip</type>
+      <scope>provided</scope>
+    </dependency>
 
     <!-- Additional bundles to be deployed by the MP -->
     <dependency>
