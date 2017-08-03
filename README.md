@@ -1,6 +1,8 @@
 ## Description
 This plugin provides annotation capabilities in the document preview feature.
 
+[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=Sandbox/sandbox_nuxeo-pdfannotation-viewer-master)](https://qa.nuxeo.org/jenkins/job/Sandbox/sandbox_nuxeo-pdfannotation-viewer-master)
+
 ## Important Note
 
 **These features are not part of the Nuxeo Production platform.**
@@ -14,7 +16,7 @@ Building requires the following software:
 - git
 - maven
 
-## How to build 
+## How to build
 ```
 git clone https://github.com/nuxeo-sandbox/nuxeo-pdfannotation-viewer
 cd nuxeo-pdfannotation-viewer
