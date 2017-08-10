@@ -1,8 +1,8 @@
 <!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
-<package type="addon" name="nuxeo-pdfannotation-fmp" version="@VERSION@">
+<package type="addon" name="nuxeo-pdf-annotation" version="@VERSION@">
   <title>Nuxeo PDF Annotation</title>
   <description>
-    <p>Annotatte PDFs. Original author: Klyff Harlley, https://github.com/klyff/nuxeo-pdfannotation-viewer</p>
+    <p>Annotate PDFs. Original author: Klyff Harlley, https://github.com/klyff/nuxeo-pdfannotation-viewer</p>
   </description>
   <!-- <home-page>http://doc.nuxeo.com/</home-page> -->
   <vendor>Nuxeo</vendor>
