@@ -2,13 +2,13 @@ var hostUrl = 'http://' + window.location.hostname;
 
 var docUrl = hostUrl + '/pdf.js/web/';
 
-var restUrl = window.parent.document.getElementById('annotationURL').innerHTML;
+var restUrl = window.frameElement.annotationurl;
 
-var username = window.parent.document.getElementById('currentUser').innerHTML;
+var username = window.frameElement.currentuser;
 
-var repository = window.parent.document.getElementById('repository').innerHTML;
+var repository = window.frameElement.repository;
 
-var printurl = window.parent.document.getElementById('printurl').innerHTML;
+var printurl = window.frameElement.printurl;
 
 var annotationSaveUrl = 'annotation';
 
@@ -19,5 +19,5 @@ var commentSaveUrl = 'annotationComment';
 var annotationMailUrl = 'annotationMail';
 
 function initURLS(){
-   
+
 }
