@@ -1,0 +1,11 @@
+{
+  "generator-nuxeo": {
+    "lastRemote": "C:\\Users\\mvach\\.cache\\node-yeoman-remote-cache\\nuxeo\\generator-nuxeo-meta\\2.8.0",
+    "promptValues": {
+      "parent_package": "org.nuxeo.pdfannotation",
+      "parent_artifact": "nuxeo-pdfannotation-parent",
+      "parent_version": "9.10-SNAPSHOT"
+    },
+    "_nuxeo_version": "9.10-SNAPSHOT"
+  }
+}
