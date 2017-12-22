@@ -9,7 +9,7 @@
 
   <artifactId>nuxeo-pdfannotation-package</artifactId>
   <packaging>zip</packaging>
-  <name>Nuxeo pdfannotation package - Nuxeo pdf annotation</name>
+  <name>Nuxeo PDF Annotation Package</name>
 
   <dependencies>
     <!-- Base distribution(s) for the MP -->
