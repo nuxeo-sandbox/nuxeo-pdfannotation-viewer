@@ -30,6 +30,7 @@
     <!-- Base distribution NXR -->
     <copy todir="${outdir}">
       <artifact:file key="org.nuxeo.ecm.distribution:nuxeo-nxr-server::zip" />
+      <artifact:file key="org.nuxeo.ecm.distribution:nuxeo-nxr-jsf-ui::zip" />
     </copy>
 
     <!-- Nuxeo bundles -->
@@ -68,6 +69,15 @@
       </artifact:set>
     </copy>
     <nx:rmdups dir="${outdir}/nxr/lib"/>
+
+    <!-- Optionally attach the NXR for later use by other modules -->
+    <unzip src="${outdir}/nuxeo-nxr-server-${nuxeo.distribution.version}.zip"
+           dest="${outdir}/nuxeo-nxr-server" />
+    <unzip src="${outdir}/nuxeo-nxr-jsf-ui-${nuxeo.distribution.version}.zip"
+           dest="${outdir}/nuxeo-nxr-server" />
+    <zip destfile="${outdir}/nuxeo-nxr-server-${nuxeo.distribution.version}.zip"
+         basedir="${outdir}/nuxeo-nxr-server" />
+
     <!-- Temporary ZIP Nuxeo NXR to compare with base distribution NXR -->
     <zip destfile="${outdir}/nxr-${maven.project.version}.zip" basedir="${outdir}/nxr"/>
     <!-- Optionally attach the NXR for later use by other modules -->
