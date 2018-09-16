@@ -5,18 +5,18 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>9.10</version>
+    <version>10.2</version>
   </parent>
 
   <groupId>org.nuxeo.pdfannotation</groupId>
   <artifactId>nuxeo-pdfannotation-parent</artifactId>
-  <version>9.10-SNAPSHOT</version>
+  <version>10.2-SNAPSHOT</version>
   <name>Nuxeo PDF Annotation parent</name>
   <description>Parent project for Nuxeo PDF Annotation.</description>
   <packaging>pom</packaging>
 
   <properties>
-    <nuxeo.dam.nxr.version>6.3.3</nuxeo.dam.nxr.version>
+    <nuxeo.dam.nxr.version>6.4.1</nuxeo.dam.nxr.version>
   </properties>
 
   <modules>
