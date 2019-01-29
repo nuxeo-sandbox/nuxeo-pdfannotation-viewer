@@ -693,7 +693,7 @@ function initWebAppPreferences() {
             // Loaded Javascript library and CSS stylesheet for audio.
         });
 
-    if (!Default.TOOLBAR_ANNOTATION_ENABLED) {
+    if (!Default.TOOLBAR_ANNOTATION_ENABLED || Default.ANNOTATIONS_READ_ONLY) {
         var toolbar = $('#toolbarAnnotations');
         $('.toolbar').css('height', $('.toolbar').height() - toolbar.height());
         $('#toolbarContainer').style('height', ($('#toolbarContainer').height() - toolbar.height()) + 'px', 'important');
