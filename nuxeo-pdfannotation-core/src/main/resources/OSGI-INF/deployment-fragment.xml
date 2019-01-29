@@ -13,6 +13,7 @@
     <delete path="${bundle.fileName}.tmp"/>
     <unzip from="${bundle.fileName}" to="${bundle.fileName}.tmp"/>
     <copy from="${bundle.fileName}.tmp/web/nuxeo.war" to="/"/>
+    <copy from="${bundle.fileName}.tmp/web/nuxeo.war/viewers" to="/nuxeo.war/ui/bower_components/nuxeo-ui-elements/"/>
     <delete path="${bundle.fileName}.tmp"/>
 
     <unzip from="${bundle.fileName}" to="/">
