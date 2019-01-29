@@ -22,11 +22,9 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.api.event.DocumentEventCategories;
 import org.nuxeo.ecm.core.api.model.Property;
-import org.nuxeo.ecm.core.api.model.impl.ListProperty;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventService;
@@ -50,7 +48,7 @@ public class AnnotationResource extends DefaultObject {
 
     //
     protected static final String FACET_ANNOTATIONEER = "Annotationeer";
-    
+
     protected static final String DEFAULT_XPATH = "file:content";
 
     //
@@ -74,7 +72,7 @@ public class AnnotationResource extends DefaultObject {
 
         String annotations = null;
         try {
-            annotations = load(doc, session, xpath, getContext().getPrincipal());
+            annotations = load(doc, session, xpath);
         } catch (Exception e) {
             log.error("Error loading annotations", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
@@ -96,7 +94,7 @@ public class AnnotationResource extends DefaultObject {
         String annotations = null;
         try {
             String changes = IOUtils.toString(input, Charsets.UTF_8);
-            annotations = save(doc, session, xpath, getContext().getPrincipal(), changes);
+            annotations = save(doc, session, xpath, changes);
         } catch (IOException e) {
             log.error("Error saving annotations", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
@@ -117,7 +115,7 @@ public class AnnotationResource extends DefaultObject {
 
         String annotations = null;
         try {
-            save(doc, session, xpath, getContext().getPrincipal(), null);
+            save(doc, session, xpath, null);
         } catch (IOException e) {
             log.error("Error saving annotations", e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
@@ -134,8 +132,7 @@ public class AnnotationResource extends DefaultObject {
      * @return
      * @throws Exception
      */
-    protected String load(DocumentModel doc, CoreSession session, String xpath, NuxeoPrincipal currentUser)
-            throws Exception {
+    protected String load(DocumentModel doc, CoreSession session, String xpath) throws Exception {
         Property target = getTargetProperty(doc, xpath);
 
         if (target == null) {
@@ -147,13 +144,15 @@ public class AnnotationResource extends DefaultObject {
             return StringUtils.EMPTY;
         }
 
-        String readOnly = session.hasPermission(currentUser, doc.getRef(), SecurityConstants.WRITE) ? "false" : "true";
+        String readOnly = session.hasPermission(getContext().getPrincipal(), doc.getRef(), SecurityConstants.WRITE)
+                ? "false"
+                : "true";
 
         // Configure the response to say that annotation can't be changed by current user
         String json = "{\"settings\":[{\"key\":\"ANNOTATIONS_READ_ONLY\",\"value\":\"" + readOnly
                 + "\"}],\"annotations\":" + "" + annotations + "}";
 
-        fireEvent(session, doc, currentUser, EVENT_LOAD);
+        fireEvent(session, doc, EVENT_LOAD);
         return (String) json;
     }
 
@@ -167,8 +166,8 @@ public class AnnotationResource extends DefaultObject {
      * @return
      * @throws Exception
      */
-    protected String save(DocumentModel doc, CoreSession session, String xpath, NuxeoPrincipal currentUser,
-            String changedAnnotations) throws Exception {
+    protected String save(DocumentModel doc, CoreSession session, String xpath, String changedAnnotations)
+            throws Exception {
 
         if (!doc.hasFacet(FACET_ANNOTATIONEER)) {
             doc.addFacet(FACET_ANNOTATIONEER);
@@ -193,7 +192,7 @@ public class AnnotationResource extends DefaultObject {
         doc = session.saveDocument(doc);
         session.save();
 
-        fireEvent(session, doc, currentUser, EVENT_SAVE);
+        fireEvent(session, doc, EVENT_SAVE);
 
         return changedAnnotations;
     }
@@ -335,10 +334,9 @@ public class AnnotationResource extends DefaultObject {
      * @param eventType
      * @throws Exception
      */
-    protected void fireEvent(CoreSession session, DocumentModel doc, NuxeoPrincipal currentUser, String eventType)
-            throws Exception {
+    protected void fireEvent(CoreSession session, DocumentModel doc, String eventType) throws Exception {
         try {
-            DocumentEventContext ctx = new DocumentEventContext(session, currentUser, doc);
+            DocumentEventContext ctx = new DocumentEventContext(session, getContext().getPrincipal(), doc);
             ctx.setCategory(DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
             ctx.setProperty(CoreEventConstants.DOC_LIFE_CYCLE, doc.getCurrentLifeCycleState());
             ctx.setProperty(CoreEventConstants.SESSION_ID, doc.getSessionId());
