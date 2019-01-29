@@ -261,7 +261,7 @@ function isEventSupported(eventName) {
 
 function init() {
 
-   //initURLS();
+   initURLS();
 
    $('#aPageNumber').val('');
    $('#colorPalette').val(Default.DRAW_COLOR_FOREGROUND);
@@ -1183,10 +1183,10 @@ function saveAllAnnotationsToServer() {
 
          for (var r = 0; r < response.length; r++) {
 
-            var json = JSON.stringify(changedAnnotations);
+            var json = null;
 
             try {
-               json = JSON.parse(response[r]);
+               json = response[r];
             } catch (ex) {
 //               alert("Resposta inválida do servidor: " + ex);
                console.error(ex);

@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.remoting.WebRemote;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.nuxeo.common.utils.Path;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
@@ -68,7 +68,7 @@ public class PDFViewerConversorAction implements ConversionAction {
         return "view_file";
     }
 
-    private DocumentModel getDocument() throws ClientException {
+    private DocumentModel getDocument() throws NuxeoException {
         if (docRef == null) {
             return navigationContext.getCurrentDocument();
         } else {
@@ -76,7 +76,7 @@ public class PDFViewerConversorAction implements ConversionAction {
         }
     }
 
-    private String getMimetypeFromDocument(String propertyName) throws ClientException {
+    private String getMimetypeFromDocument(String propertyName) throws NuxeoException {
         Blob blob = (Blob) getDocument().getPropertyValue(propertyName);
         return blob.getMimeType();
     }
@@ -86,7 +86,7 @@ public class PDFViewerConversorAction implements ConversionAction {
         pdfConverterForTypes.clear();
     }
 
-    public boolean isExportableToPDF(BlobHolder bh) throws ClientException {
+    public boolean isExportableToPDF(BlobHolder bh) throws NuxeoException {
         if (bh == null) {
             return false;
         }
@@ -120,13 +120,13 @@ public class PDFViewerConversorAction implements ConversionAction {
 
         // Check if there is any saved ConverterCheckResult for the desired
         // MIME type.
-        if (pdfConverterForTypes.containsValue(mimetype)) {
+        if (pdfConverterForTypes.containsKey(mimetype)) {
             return pdfConverterForTypes.get(mimetype).isAvailable();
         }
 
         try {
             ConverterCheckResult pdfConverterAvailability;
-            ConversionService conversionService = Framework.getLocalService(ConversionService.class);
+            ConversionService conversionService = Framework.getService(ConversionService.class);
             Iterator<String> converterNames = conversionService.getConverterNames(mimetype, PDF_MIMETYPE).iterator();
             while (converterNames.hasNext()) {
                 pdfConverterName = converterNames.next();
@@ -173,7 +173,7 @@ public class PDFViewerConversorAction implements ConversionAction {
     public String generatePdfFileFromBlobHolder(BlobHolder bh) {
         try {
 
-            if (!isExportableToPDF(bh)){
+            if (!isExportableToPDF(bh)) {
                 log.error("No PDF converter was found.");
                 return "pdf_generation_error";
             }
@@ -183,7 +183,7 @@ public class PDFViewerConversorAction implements ConversionAction {
                 return "pdf_generation_error";
             }
 
-            BlobHolder result = Framework.getLocalService(ConversionService.class).convert(pdfConverterName, bh, null);
+            BlobHolder result = Framework.getService(ConversionService.class).convert(pdfConverterName, bh, null);
 
             if (result == null) {
                 log.error("Transform service didn't return any resulting documents which is not normal.");

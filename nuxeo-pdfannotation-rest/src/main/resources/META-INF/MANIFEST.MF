@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-Vendor: Klyff Harlley
+Bundle-Version: 1.0.0
+Bundle-Name: Nuxeo PDF Viewer Annotation
+Bundle-ManifestVersion: 1
+Bundle-SymbolicName: org.nuxeo.platform.pdfviewer.rest;singleton:=true
+Fragment-Host: org.nuxeo.ecm.platform.restapi.server

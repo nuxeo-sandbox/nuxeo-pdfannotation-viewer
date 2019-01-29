@@ -33,87 +33,89 @@ import org.nuxeo.runtime.api.Framework;
 @Scope(ScopeType.CONVERSATION)
 public class PDFViewerSeam implements Serializable {
 
-   private static final Log log = LogFactory.getLog(PDFViewerSeam.class);
+    private static final long serialVersionUID = 1L;
 
-   protected Map<String, ConverterCheckResult> pdfConverterForTypes;
+    static final Log log = LogFactory.getLog(PDFViewerSeam.class);
 
-   protected static final String PDF_MIMETYPE = "application/pdf";
+    protected Map<String, ConverterCheckResult> pdfConverterForTypes;
 
-   public static final String PREVIEW_POPUP_VIEW = "smartpreview";
+    protected static final String PDF_MIMETYPE = "application/pdf";
 
-   @In(create = true, required = false)
-   CoreSession documentManager;
+    public static final String PREVIEW_POPUP_VIEW = "smartpreview";
 
-   @In(create = true)
-   NavigationContext navigationContext;
+    @In(create = true, required = false)
+    CoreSession documentManager;
 
-   @In(create = true)
-   protected Principal currentUser;
+    @In(create = true)
+    NavigationContext navigationContext;
 
-   @RequestParameter
-   private String docRef;
+    @In(create = true)
+    protected Principal currentUser;
 
-   @RequestParameter
-   private String fileFieldFullName;
+    @RequestParameter
+    private String docRef;
 
-   @RequestParameter
-   private String filename;
+    @RequestParameter
+    private String fileFieldFullName;
 
-   @WebRemote
-   public String currentDocument(String param) {
-      return navigationContext.getCurrentDocument().getId();
-   }
+    @RequestParameter
+    private String filename;
 
-   @WebRemote
-   public String currentRepository(String param) {
-      return documentManager.getRepositoryName();
-   }
+    @WebRemote
+    public String currentDocument(String param) {
+        return navigationContext.getCurrentDocument().getId();
+    }
 
-   @WebRemote
-   public String currentUser(String param) {
-      return currentUser.getName();
-   }
+    @WebRemote
+    public String currentRepository(String param) {
+        return documentManager.getRepositoryName();
+    }
 
-   @WebRemote
-   public String baseURL(String param) {
-      return BaseURL.getBaseURL();
-   }
+    @WebRemote
+    public String currentUser(String param) {
+        return currentUser.getName();
+    }
 
-   public String getPreviewURL() {
-      DocumentModel currentDocument = navigationContext.getCurrentDocument();
-      if (currentDocument == null) {
-         return null;
-      }
-      return getPreviewPopupURL(currentDocument, true);
-   }
+    @WebRemote
+    public String baseURL(String param) {
+        return BaseURL.getBaseURL();
+    }
 
-   public String getPreviewWithBlobPostProcessingURL() {
-      String url = getPreviewURL();
-      url += "?blobPostProcessing=true";
-      return url;
-   }
+    public String getPreviewURL() {
+        DocumentModel currentDocument = navigationContext.getCurrentDocument();
+        if (currentDocument == null) {
+            return null;
+        }
+        return getPreviewPopupURL(currentDocument, true);
+    }
 
-   public String getCurrentDocumentPreviewPopupURL() {
-      return getPreviewPopupURL(navigationContext.getCurrentDocument());
-   }
+    public String getPreviewWithBlobPostProcessingURL() {
+        String url = getPreviewURL();
+        url += "?blobPostProcessing=true";
+        return url;
+    }
 
-   public String getPreviewPopupURL(DocumentModel doc) {
-      return getPreviewPopupURL(doc, false);
-   }
+    public String getCurrentDocumentPreviewPopupURL() {
+        return getPreviewPopupURL(navigationContext.getCurrentDocument());
+    }
 
-   /**
-    * @since 5.7
-    */
-   public String getPreviewPopupURL(DocumentModel doc, boolean newConversation) {
-      DocumentLocation docLocation = new DocumentLocationImpl(doc.getRepositoryName(), doc.getRef());
-      DocumentView docView = new DocumentViewImpl(docLocation, PREVIEW_POPUP_VIEW);
-      docView.setPatternName("id");
-      URLPolicyService urlPolicyService = Framework.getLocalService(URLPolicyService.class);
-      String url = urlPolicyService.getUrlFromDocumentView(docView, null);
-      if (!newConversation) {
-         url = RestHelper.addCurrentConversationParameters(url);
-      }
-      return VirtualHostHelper.getContextPathProperty() + "/" + url;
-   }
+    public String getPreviewPopupURL(DocumentModel doc) {
+        return getPreviewPopupURL(doc, false);
+    }
+
+    /**
+     * @since 5.7
+     */
+    public String getPreviewPopupURL(DocumentModel doc, boolean newConversation) {
+        DocumentLocation docLocation = new DocumentLocationImpl(doc.getRepositoryName(), doc.getRef());
+        DocumentView docView = new DocumentViewImpl(docLocation, PREVIEW_POPUP_VIEW);
+        docView.setPatternName("id");
+        URLPolicyService urlPolicyService = Framework.getService(URLPolicyService.class);
+        String url = urlPolicyService.getUrlFromDocumentView(docView, null);
+        if (!newConversation) {
+            url = RestHelper.addCurrentConversationParameters(url);
+        }
+        return VirtualHostHelper.getContextPathProperty() + "/" + url;
+    }
 
 }

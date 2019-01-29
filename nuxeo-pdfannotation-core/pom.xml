@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.nuxeo.pdfannotation</groupId>
     <artifactId>nuxeo-pdfannotation-parent</artifactId>
-    <version>10.2-SNAPSHOT</version>
+    <version>10.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>nuxeo-pdfannotation-core</artifactId>
@@ -27,11 +27,6 @@
       <groupId>org.nuxeo.ecm.automation</groupId>
       <artifactId>nuxeo-automation-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.4</version>
     </dependency>
 
   </dependencies>

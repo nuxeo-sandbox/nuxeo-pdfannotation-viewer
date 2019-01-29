@@ -103,6 +103,7 @@
         });
 
         $scope.setAnnotation = function(annotation, key) {
+            $scope.currentUsername = $window.username;
             $scope.annotation = annotation;
             $scope.key = key;
 
