@@ -11,4 +11,14 @@
     </facet>
   </extension>
 
+  <extension target="org.nuxeo.ecm.core.security.SecurityService" point="permissions">
+    <permission name="Annotations"/>
+  </extension>
+
+  <extension target="org.nuxeo.ecm.core.security.SecurityService" point="permissionsVisibility">
+    <visibility>
+      <item order="55" show="true">Annotations</item>
+    </visibility>
+  </extension>
+
 </component>

@@ -49,6 +49,8 @@ public class AnnotationResource extends DefaultObject {
     //
     protected static final String FACET_ANNOTATIONEER = "Annotationeer";
 
+    protected static final String PERMISSION_ANNOTATION = "Annotations";
+
     protected static final String DEFAULT_XPATH = "file:content";
 
     //
@@ -87,6 +89,11 @@ public class AnnotationResource extends DefaultObject {
         CoreSession session = getContext().getCoreSession();
         DocumentModel doc = session.getDocument(new IdRef(docId));
 
+        boolean writable = session.hasPermission(doc.getRef(), SecurityConstants.WRITE);
+        if (!writable) {
+            return Response.status(Status.UNAUTHORIZED).build();
+        }
+
         if (StringUtils.isBlank(xpath)) {
             xpath = DEFAULT_XPATH;
         }
@@ -108,6 +115,11 @@ public class AnnotationResource extends DefaultObject {
             throws Exception {
         CoreSession session = getContext().getCoreSession();
         DocumentModel doc = session.getDocument(new IdRef(docId));
+
+        boolean writable = session.hasPermission(doc.getRef(), SecurityConstants.WRITE);
+        if (!writable) {
+            return Response.status(Status.UNAUTHORIZED).build();
+        }
 
         if (StringUtils.isBlank(xpath)) {
             xpath = DEFAULT_XPATH;
@@ -144,12 +156,15 @@ public class AnnotationResource extends DefaultObject {
             return StringUtils.EMPTY;
         }
 
-        String readOnly = session.hasPermission(getContext().getPrincipal(), doc.getRef(), SecurityConstants.WRITE)
-                ? "false"
-                : "true";
+        boolean writable = session.hasPermission(doc.getRef(), SecurityConstants.WRITE);
+        if (!writable) {
+            if (!session.hasPermission(doc.getRef(), PERMISSION_ANNOTATION)) {
+                annotations = "[]";
+            }
+        }
 
         // Configure the response to say that annotation can't be changed by current user
-        String json = "{\"settings\":[{\"key\":\"ANNOTATIONS_READ_ONLY\",\"value\":\"" + readOnly
+        String json = "{\"settings\":[{\"key\":\"ANNOTATIONS_READ_ONLY\",\"value\":\"" + !writable
                 + "\"}],\"annotations\":" + "" + annotations + "}";
 
         fireEvent(session, doc, EVENT_LOAD);
