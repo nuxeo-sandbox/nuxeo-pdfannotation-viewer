@@ -3,6 +3,20 @@ This plugin provides annotation capabilities in the document preview feature.
 
 [![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=Sandbox/sandbox_nuxeo-pdfannotation-viewer-master)](https://qa.nuxeo.org/jenkins/job/Sandbox/sandbox_nuxeo-pdfannotation-viewer-master)
 
+## Usage
+
+PDF annotations are available for those users with "Write" access to a document.  There is also an "Annotations" permission that may be assigned to a user to read annotations without having write access to the document.
+
+Use case:
+
+- User1 has Write access and creates several annotations
+- User2 has Read & Annotations access to view the annotations
+- User3 only has Read access and does not see the annotations
+
+## Notes
+
+As of 10.3, the PDF annotation services will replace all PDF preview portals.  You do not need to enable the viewer for an individual document type.
+
 ## Important Note
 
 **These features are not part of the Nuxeo Production platform.**
