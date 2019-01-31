@@ -1,41 +1,30 @@
 <package type="addon" name="nuxeo-pdf-annotation" version="@VERSION@">
   <title>Nuxeo PDF Annotation</title>
   <description>
-    <p>Annotate PDFs. Original author: Klyff Harlley, https://github.com/klyff/nuxeo-pdfannotation-viewer</p>
+    <div>
+      <h1>Annotate PDFs</h1>
+      <p>Annotate files, attachments, and images with annotation tools.  Adds the 'Annotations' permission to allow others to view the annotation layer.</p>
+      <p>Original author: Klyff Harlley, https://github.com/klyff/nuxeo-pdfannotation-viewer</p>
+    </div>
   </description>
-  <!-- <home-page>http://doc.nuxeo.com/</home-page> -->
+  <home-page>https://github.com/nuxeo-sandbox/nuxeo-pdfannotation-viewer</home-page>
   <vendor>Nuxeo</vendor>
   <installer restart="true" />
   <uninstaller restart="true" />
-  <!-- <hotreload-support>false</hotreload-support> -->
-  <!-- <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance> -->
-  <!-- Nuxeo Validation: none | inprocess | primary_validation | nuxeo_certified -->
+  <hotreload-support>false</hotreload-support>
+  <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance>
   <nuxeo-validation>none</nuxeo-validation>
-  <!-- Production State: production_ready | testing | proto -->
-  <production-state>testing</production-state>
+  <production-state>proto</production-state>
   <supported>false</supported>
   <platforms>
     <platform>server-@DISTRIB_VERSION@</platform>
     <platform>server-@DISTRIB_VERSION@-HF*</platform>
   </platforms>
-  <!-- Dependencies on other packages -->
-  <!-- <dependencies> -->
-  <!-- <package>another-package:1.0.0:1.0.0</package> -->
-  <!-- If you require JSF UI package:  -->
-  <!-- <package>nuxeo-jsf-ui</package> -->
-  <!-- If you require WEB UI package:  -->
-  <!-- <package>nuxeo-web-ui</package> -->
-  <!-- </dependencies> -->
-  <!-- Conflicts with other packages -->
-  <!-- <conflicts> -->
-  <!-- <package>a-conflicting-package:1.0.0:1.0.0</package> -->
-  <!-- </conflicts> -->
-  <!-- Provides features of other packages -->
-  <!-- <provides> -->
-  <!-- <package>an-embedded-package:1.0.0:1.0.0</package> -->
-  <!-- </provides> -->
+  <dependencies>
+    <package>nuxeo-jsf-ui</package>
+    <package>nuxeo-web-ui</package>
+  </dependencies>
   <license>Apache License, Version 2.0</license>
   <license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
-  <!-- Visibility: PRIVATE | MARKETPLACE | DEV | PUBLIC -->
   <visibility>DEV</visibility>
 </package>
