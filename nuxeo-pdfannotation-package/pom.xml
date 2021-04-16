@@ -9,6 +9,10 @@
   <artifactId>nuxeo-pdfannotation-package</artifactId>
   <packaging>zip</packaging>
   <name>Nuxeo PDF Annotation Package</name>
+  
+  <properties>
+    <nuxeo.lts.version>lts-2021.*</nuxeo.lts.version>
+  </properties>
 
   <dependencies>
     <!-- Base distribution(s) for the MP -->

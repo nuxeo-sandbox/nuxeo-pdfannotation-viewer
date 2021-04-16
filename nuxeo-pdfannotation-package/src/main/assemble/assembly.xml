@@ -20,6 +20,7 @@
       <filterset>
         <filter token="VERSION" value="${maven.project.version}"/>
         <filter token="DISTRIB_VERSION" value="${nuxeo.platform.version}"/>
+        <filter token="LTS_VERSION" value="${nuxeo.lts.version}" />
         <filter token="NUXEO_TARGET_VERSION" value="${nuxeo.target.version}"/>
       </filterset>
     </copy>
