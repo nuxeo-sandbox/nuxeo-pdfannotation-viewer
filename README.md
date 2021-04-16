@@ -13,10 +13,6 @@ Use case:
 - User2 has Read & Annotations access to view the annotations
 - User3 only has Read access and does not see the annotations
 
-## Notes
-
-As of 10.3, the PDF annotation services will replace all PDF preview portals.  You do not need to enable the viewer for an individual document type.
-
 ## Requirements
 Building requires the following software:
 - git

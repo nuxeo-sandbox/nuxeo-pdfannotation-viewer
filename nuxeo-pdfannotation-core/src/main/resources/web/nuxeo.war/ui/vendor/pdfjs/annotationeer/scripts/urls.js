@@ -15,8 +15,10 @@ var commentSaveUrl = 'annotationComment';
 var printurl = null;
 
 function initURLS() {
+	console.log("Search: " + window.location.search);
 	var urlParams = new URLSearchParams(window.location.search);
 	var file = urlParams.get("file");
+	console.log("File: " + file);
 	printurl = file;
 	if (file) {
 		var pieces = file.split("/");
@@ -40,6 +42,7 @@ function initURLS() {
 		annotationSaveUrl = fragment;
 		annotationDeleteUrl = fragment;
 	}
+	console.log("REST: " + restUrl);
 	$.get(restUrl + 'me', function(data) {
 		username = data.id;
 	}, 'json');

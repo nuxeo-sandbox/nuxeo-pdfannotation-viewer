@@ -12,7 +12,6 @@ Bundle-Name: Nuxeo PdfViewer Annotation
 Bundle-ManifestVersion: 2
 Provide-Package: org.nuxeo.platform.pdfviewer
 Bundle-SymbolicName: org.nuxeo.platform.pdfviewer
-Nuxeo-Component: OSGI-INF/actions-contrib.xml, 
- OSGI-INF/core-types-contrib.xml,
+Nuxeo-Component: OSGI-INF/core-types-contrib.xml,
  OSGI-INF/nxaudit-service-contrib.xml
 

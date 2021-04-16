@@ -19,6 +19,7 @@
   <platforms>
     <platform>server-@DISTRIB_VERSION@</platform>
     <platform>server-@DISTRIB_VERSION@-HF*</platform>
+    <platform>@LTS_VERSION@</platform>
   </platforms>
   <dependencies>
     <package>nuxeo-jsf-ui</package>

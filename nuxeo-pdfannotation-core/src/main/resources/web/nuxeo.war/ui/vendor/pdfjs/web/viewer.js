@@ -6525,6 +6525,7 @@ function webViewerInitialized() {
    var queryString = document.location.search.substring(1);
    var params = parseQueryString(queryString);
    var file = 'file' in params ? params.file : DEFAULT_URL;
+   console.log("Viewer file: " + file);
    validateFileURL(file);
    var fileInput = document.createElement('input');
    fileInput.id = 'fileInput';
