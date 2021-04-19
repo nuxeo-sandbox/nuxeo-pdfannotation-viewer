@@ -10,7 +10,7 @@
 
   <groupId>org.nuxeo.pdfannotation</groupId>
   <artifactId>nuxeo-pdfannotation-parent</artifactId>
-  <version>11.4.0</version>
+  <version>11.4.1</version>
   <name>Nuxeo PDF Annotation parent</name>
   <description>Parent project for Nuxeo PDF Annotation.</description>
   <packaging>pom</packaging>
