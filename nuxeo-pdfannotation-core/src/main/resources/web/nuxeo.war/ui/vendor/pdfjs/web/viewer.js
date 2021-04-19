@@ -1037,6 +1037,7 @@ var PDFFindController = (function PDFFindControllerClosure() {
       this.active = false; // If active, find results will be highlighted.
       this.pageContents = []; // Stores the text for each page.
       this.pageMatches = [];
+      this.pageMatchesLen = [];
       this.matchCount = 0;
       this.selected = {// Currently selected match.
          pageIdx: -1,
@@ -1116,15 +1117,47 @@ var PDFFindController = (function PDFFindControllerClosure() {
          }
 
          var matches = [];
-         var matchIdx = -queryLen;
-         while (true) {
-            matchIdx = pageContent.indexOf(query, matchIdx + queryLen);
-            if (matchIdx === -1) {
-               break;
-            }
-            matches.push(matchIdx);
-         }
-         this.pageMatches[pageIndex] = matches;
+         var matchIdx = -1;
+         if (this.state.phrase) {
+           var terms = query.split(",");
+           for(var termIdx in terms) {
+              var term = terms[termIdx];
+              var termLen = term.length;
+              matchIdx = -termLen;
+              while (true) {
+                 matchIdx = pageContent.indexOf(term, matchIdx + termLen);
+                  if (matchIdx === -1) {
+                    break;
+                 }
+                 matches.push({"idx": matchIdx, "len": termLen});
+              }
+           }
+         } else {
+           matchIdx = -queryLen;
+           while (true) {
+              matchIdx = pageContent.indexOf(query, matchIdx + queryLen);
+              if (matchIdx === -1) {
+                 break;
+              }
+              matches.push({"idx": matchIdx, "len": queryLen});
+           }
+        }
+
+        //2) sort:
+        matches.sort(function(a, b) {
+           return ((a.idx < b.idx) ? -1 : ((a.idx == b.idx) ? 0 : 1));
+        });
+        
+        //3) separate them back out:
+        var matchIndex = [];
+        var matchLen = [];
+        for (var k = 0; k < matches.length; k++) {
+           matchIndex[k] = matches[k].idx;
+           matchLen[k] = matches[k].len;
+        }
+
+         this.pageMatches[pageIndex] = matchIndex;
+         this.pageMatchesLen[pageIndex] = matchLen;
          this.updatePage(pageIndex);
          if (this.resumePageIdx === pageIndex) {
             this.resumePageIdx = null;
@@ -1216,6 +1249,7 @@ var PDFFindController = (function PDFFindControllerClosure() {
             this.hadMatch = false;
             this.resumePageIdx = null;
             this.pageMatches = [];
+            this.pageMatchesLen = [];
             this.matchCount = 0;
             var self = this;
             for (var i = 0; i < numPages; i++) {
@@ -3825,7 +3859,7 @@ var TextLayerBuilder = (function TextLayerBuilderClosure() {
          this.textContent = textContent;
          this.divContentDone = true;
       },
-      convertMatches: function TextLayerBuilder_convertMatches(matches) {
+      convertMatches: function TextLayerBuilder_convertMatches(matches, matchlen) {
          var i = 0;
          var iIndex = 0;
          var bidiTexts = this.textContent.items;
@@ -3853,7 +3887,11 @@ var TextLayerBuilder = (function TextLayerBuilderClosure() {
                }
             };
             // Calculate the end position.
-            matchIdx += queryLen;
+            if (this.findController !== null && this.findController.state.phrase) {
+              matchIdx += matchlen[m] || queryLen;
+            } else {
+              matchIdx += queryLen;
+            }
             // Somewhat the same array as above, but use > instead of >= to get
             // the end position right.
             while (i !== end && matchIdx > (iIndex + bidiTexts[i].str.length)) {
@@ -3990,7 +4028,9 @@ var TextLayerBuilder = (function TextLayerBuilderClosure() {
          // Convert the matches on the page controller into the match format
          // used for the textLayer.
          this.matches = this.convertMatches(this.findController === null ?
-                 [] : (this.findController.pageMatches[this.pageIdx] || []));
+                 [] : (this.findController.pageMatches[this.pageIdx] || []),
+                 this.findController === null ?
+                 [] : (this.findController.pageMatchesLen[this.pageIdx] || []));
          this.renderMatches(this.matches);
       },
       /**
